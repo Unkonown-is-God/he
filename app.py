@@ -5,7 +5,7 @@ from unmo import Unmo
 
 app=Flask(__name__)
 @app.route("/<key>",methods=["GET"])
-"""def build_prompt(unmo):
+'''def build_prompt(unmo):
     """AIインスタンスを取り、AIとResponderの名前を整形して返す"""
     return '{name}:{responder}> '.format(name=unmo.name,
                                          responder=unmo.responder_name)
@@ -27,7 +27,7 @@ if __name__ == '__main__':#main.pyがターミナルで実行されているの�
             print('{prompt}{response}'.format(prompt=build_prompt(proto),
                                           response=response))#{}のなかのやつと.formatのやつは名前をあわせ
     proto.save()
-"""
+'''
 def main(key):
         return "hello"
 
