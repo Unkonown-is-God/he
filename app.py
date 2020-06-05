@@ -4,7 +4,7 @@ from unmo import Unmo
 
 
 app=Flask(__name__)
-@app.route("/<key>",methods=["GET"])
+@app.route("/")
 '''def build_prompt(unmo):
     """AIインスタンスを取り、AIとResponderの名前を整形して返す"""
     return '{name}:{responder}> '.format(name=unmo.name,
