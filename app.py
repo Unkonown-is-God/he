@@ -29,6 +29,6 @@ if __name__ == '__main__':#main.pyがターミナルで実行されているの�
     proto.save()
 '''
 def main(key):
-        return "hello"
+        return jsonify("hello")
 
 app.run(host='0.0.0.0',port=int(os.environ.get('PORT', 5000)))

@@ -14,10 +14,10 @@ class Dictionary:
     random -- ランダム辞書
     pattern -- パターン辞書'''
     
-    DICT={'random':'unmo/dics/random.txt',
-          'pattern':'unmo/dics/pattern.txt',
-          'template':'unmo/dics/template.txt',
-          'markov':'unmo/dics/markov.dat'}
+    DICT={'random':'dics/random.txt',
+          'pattern':'dics/pattern.txt',
+          'template':'dics/template.txt',
+          'markov':'dics/markov.dat'}
     
     def __init__(self):
         Dictionary.touch_dics()
