@@ -3,6 +3,8 @@ import os
 import craft
 
 app=Flask(__name__)
+
+
 @app.route("/<key>",methods=["GET"])
 def main(key):
         return jsonify(craft.apimode(key))
