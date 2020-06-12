@@ -14,6 +14,7 @@ def apimode(key):
     except IndexError as error:
         value['response']='{}: {}'.format(type(error).__name__,str(error))
     return value
+    proto.save()
 
 if __name__ == '__main__':#main.pyがターミナルで実行されているのかを判別
     print('Unmo System prototype : proto')
