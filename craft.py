@@ -13,7 +13,7 @@ def apimode(key):
                                                   response=response)#{}のなかのやつと.formatのやつは名前をあわせ
     except IndexError as error:
         value['response']='{}: {}'.format(type(error).__name__,str(error))
-    value['save']=proto.save()
+    proto.save()
     return value
 
 if __name__ == '__main__':#main.pyがターミナルで実行されているのかを判別
