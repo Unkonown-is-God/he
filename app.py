@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, abort, make_response
 import os
-from unmo import Unmo
+#from unmo import Unmo
 
 
 app=Flask(__name__)
