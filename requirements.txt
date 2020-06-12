@@ -25,3 +25,5 @@ jsonpointer==1.10
 jsonschema==2.6.0
 keyring==10.6.0
 keyrings.alt==3.0
+janome==0.3.10
+dill==0.3.1.1

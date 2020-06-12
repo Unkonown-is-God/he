@@ -1,11 +1,10 @@
 from flask import Flask, jsonify, abort, make_response
 import os
-#from unmo import Unmo
-
+import craft
 
 app=Flask(__name__)
-@app.route("/")
-def main():
-        return jsonify("hello")
+@app.route("/<key>",methods=["GET"])
+def main(key):
+        return craft.apimode(key)
 
 app.run(host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
