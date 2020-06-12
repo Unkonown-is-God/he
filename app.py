@@ -9,4 +9,4 @@ app=Flask(__name__)
 def main(key):
         return jsonify(craft.apimode(key))
 
-app.run(host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
+app.run(host='0.0.0.0',port=int(os.environ.get('PORT', 5000)))
