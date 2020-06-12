@@ -272,3 +272,5 @@ uuu
 ｄ
 神になりたい
 いみえあからん
+favicon.ico
+hello

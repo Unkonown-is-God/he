@@ -749,3 +749,7 @@ uuu	uuu
 同士	暗記が同士短大
 短大	暗記が同士短大
 意味	暗記ばかりじゃ意味がない
+favicon	favicon.ico
+.	favicon.ico
+ico	favicon.ico
+hello	hello
