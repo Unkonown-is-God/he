@@ -46,6 +46,7 @@ class Unmo:
     def save(self):
         #Dictionaryのsaveを持ってくる
         self._dictionary.save()
+        return 1
 
     @property
     def name(self):
