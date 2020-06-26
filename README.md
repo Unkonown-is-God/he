@@ -1,5 +1,5 @@
 # he
 ## python de api!
 herokuにデプロイして遊ぼう
-重すぎてやばい
-numpyに変更しないとサーバで動かん
+重すぎてやばい  
+clientで応答を確認できる
