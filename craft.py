@@ -13,7 +13,7 @@ def apimode(key):
     try:
         response = proto.dialogue(key)
         value['response'] = response  # {}のなかのやつと.formatのやつは名前をあわせ
-        value['prompt'] ='build_prompt(proto)
+        value['prompt'] = build_prompt(proto)
     except IndexError as error:
         value['response'] = '{}: {}'.format(type(error).__name__, str(error))
     value['save'] = proto.save()
