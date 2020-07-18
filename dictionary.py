@@ -17,7 +17,8 @@ class Dictionary:
     DICT={'random':'dics/random.txt',
           'pattern':'dics/pattern.txt',
           'template':'dics/template.txt',
-          'markov':'dics/markov.dat'}
+          'markov':'dics/markov.dat',
+          'emotion':'dics/emotion.txt'}
     
     def __init__(self):
         Dictionary.touch_dics()
@@ -26,6 +27,8 @@ class Dictionary:
         self._pattern=Dictionary.load_pattern(Dictionary.DICT['pattern'])
         self._template=Dictionary.load_template(Dictionary.DICT['template'])
         self._markov=Dictionary.load_markov(Dictionary.DICT['markov'])
+        self._emotion=Dictionary.load_emotion(Dictionary.DICT['emotion'])
+
     @staticmethod
     def load_random(filename):
         try:
@@ -67,6 +70,16 @@ class Dictionary:
         except EOFError as e:
             print(format_error(e))
         return markov
+    @staticmethod
+    def load_emotion(filename):
+        try:
+            with open (filename,'r',encoding='utf-8') as f:
+                lines=[x for x in f.read().splitlines() if x]#リスト内表記で検索
+                l=len(lines)
+                parts=[lines[x].split(':') for x in range(l)]
+                return [(parts[x][0],parts[x][3]) for x in range(l)]
+        except IOError as e:
+            print(format_error(e))
 
     def study(self,text,parts):
         self.study_random(text)
