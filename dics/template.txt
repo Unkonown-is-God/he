@@ -31,5 +31,7 @@
 2	%noun%ばかりじゃ%noun%がない
 2	%noun%の%noun%は臭くてたまらん
 2	%noun%がいみがないん%noun%
+2	%noun%が減ったって%noun%？
+2	%noun%を殺すって%noun%？
 7	%noun%が%noun%だというのだ、%noun%%noun%の%noun%に%noun%も%noun%しないね
 6	%noun%はいつも%noun%してばかりだ、%noun%には%noun%で%noun%か考えてみたらどう%noun%

@@ -83,7 +83,7 @@ class Dictionary:
                 lines = [x for x in f.read().splitlines() if x]  # リスト内表記で検索
                 l = len(lines)
                 parts = [lines[x].split(':') for x in range(l)]
-                return [(parts[x][0], parts[x][3]) for x in range(l)]
+                return [(parts[x][0], parts[x][1], parts[x][3]) for x in range(l)]
         except IOError as e:
             print(format_error(e))
 

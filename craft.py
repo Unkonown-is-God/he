@@ -34,6 +34,6 @@ if __name__ == '__main__':  # main.pyがターミナルで実行されている�
             print('{}: {}'.format(type(error).__name__, str(error)))
             print('辞書が空です(Responder:{})'.format(proto.responder_name))
         else:
-            print('{prompt}{response}'.format(prompt=build_prompt(proto),
-                                              response=response[0]))  # {}のなかのやつと.formatのやつは名前をあわせ
+            print('{prompt}{response}:{emotion}'.format(prompt=build_prompt(proto),
+                                                        response=response[0], emotion=response[1]))  # {}のなかのやつと.formatのやつは名前をあわせ
     proto.save()

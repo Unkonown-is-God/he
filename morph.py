@@ -6,7 +6,7 @@ TOKENNIZER = Tokenizer()
 def analyze(text):
     # textを形態素解析し[(surface,parts)]の形にして返す リスト型
     # 表層系、品詞
-    return [[t.surface, t.part_of_speech] for t in TOKENNIZER.tokenize(text)]
+    return [(t.surface, t.part_of_speech, t.reading) for t in TOKENNIZER.tokenize(text)]
 
 
 def is_keyword(part):
@@ -21,5 +21,4 @@ def fix(text):
 if __name__ == "__main__":
     text = input('>')
     print(fix(text))
-    s, p = analyze(text)
-    print(s)
+    print(analyze(text))
