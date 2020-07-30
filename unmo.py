@@ -44,11 +44,11 @@ class Unmo:
             self._responder = self._responders['markov']
         else:
             self._responder = self._responders['what']
-        parts = morph.analyze(text)
+        parts = morph.analyze(text, 0)
         response = self._responder.response(text, parts)
-        parts = morph.analyze(response)
-        emotion = self._emotion.emotionv(parts)
         self._dictionary.study(text, parts)
+        parts = morph.analyze(response, 1)
+        emotion = self._emotion.emotionv(parts)
         return [response, emotion]
 
     def save(self):

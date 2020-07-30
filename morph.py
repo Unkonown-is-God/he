@@ -3,10 +3,13 @@ from janome.tokenizer import Tokenizer
 TOKENNIZER = Tokenizer()
 
 
-def analyze(text):
+def analyze(text, flag):
     # textを形態素解析し[(surface,parts)]の形にして返す リスト型
     # 表層系、品詞
-    return [(t.surface, t.part_of_speech, t.reading) for t in TOKENNIZER.tokenize(text)]
+    if flag == 0:
+        return [(t.surface, t.part_of_speech) for t in TOKENNIZER.tokenize(text)]
+    else:
+        return [(t.surface, t.part_of_speech, t.reading) for t in TOKENNIZER.tokenize(text)]
 
 
 def is_keyword(part):
@@ -21,4 +24,4 @@ def fix(text):
 if __name__ == "__main__":
     text = input('>')
     print(fix(text))
-    print(analyze(text))
+    print(analyze(text, 1))

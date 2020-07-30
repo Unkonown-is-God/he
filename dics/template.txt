@@ -21,6 +21,7 @@
 1	%noun%にはしてない
 1	%noun%にきいているんだよなあ
 1	%noun%になりたい
+1	%noun%が減った
 4	%noun%はいい%noun%でしたが、%noun%は%noun%を誤った
 4	%noun%ぶっているけどその%noun%、傷つきやすかった、%noun%も%noun%に気づいてあげれなかったんだ
 2	%noun%の%noun%だよ
