@@ -2,6 +2,7 @@ from random import choice, randrange
 from responder import RandomResponder, WhatResponder, PatternResponder, TemplateResponder, MarkovResponder
 from dictionary import Dictionary
 import morph
+from emotion import Emotion
 
 
 class Unmo:
@@ -24,11 +25,13 @@ class Unmo:
                             }
         # 登録されたクラスをここで指定して呼びだしている
         self._responder = self._responders['pattern']
+        self._emotion = Emotion()
         # 初期設定としてrandom
         # 呼び出されたクラスはインスタンス化される（要するに__init__が動く)
 
     def dialogue(self, text):
         """ユーザーからの入力を受け取り、Responderに処理させた結果を返す。"""
+        text = morph.fix(text)
         chance = randrange(0, 100)  # random.randomではfloat型なのでrandrangeを使う
         # ランダムに0から１００を生成
         if chance in range(0, 30):  # rangeはint型　０から５９
@@ -43,8 +46,10 @@ class Unmo:
             self._responder = self._responders['what']
         parts = morph.analyze(text)
         response = self._responder.response(text, parts)
+        parts = morph.analyze(response)
+        emotion = self._emotion.emotionv(parts)
         self._dictionary.study(text, parts)
-        return response
+        return [response, emotion]
 
     def save(self):
         # Dictionaryのsaveを持ってくる
