@@ -751,3 +751,4 @@ favicon	favicon.ico
 .	favicon.ico
 ico	favicon.ico
 hello	hello
+カス	カス
