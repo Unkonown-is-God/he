@@ -1,7 +1,7 @@
 from gensim.models import word2vec
 import random
 MODEL = 'dics/w2v_model.model'
-WAKATI  'dics/wakati.txt'
+WAKATI = 'dics/wakati.txt'
 def load_w2v(word): 
     model = word2vec.Word2Vec.load(model_file)
     try:
