@@ -3,7 +3,7 @@ from responder import RandomResponder, WhatResponder, PatternResponder, Template
 from dictionary import Dictionary
 import morph
 from emotion import Emotion
-import wakati
+from wakati import Wakati
 
 
 class Unmo:
@@ -27,7 +27,8 @@ class Unmo:
                             }
         # 登録されたクラスをここで指定して呼びだしている
         self._responder = self._responders['pattern']
-        self._emotion = Emotion()
+        self._emotion = Emotion(self._dictionary)
+        self._wakati=Wakati()
         # 初期設定としてrandom
         # 呼び出されたクラスはインスタンス化される（要するに__init__が動く)
 
@@ -54,6 +55,8 @@ class Unmo:
         self._dictionary.study(text, parts)
         parts = morph.analyze(response, 1)
         emotion = self._emotion.emotionv(parts)
+        text=self._wakati.wakati_text(text)
+        self._wakati.add_wakati(text)
         return [response, emotion]
 
     def save(self):

@@ -3,6 +3,7 @@ from markov import Markov
 from util import format_error
 from collections import defaultdict
 import os.path
+import w2v
 
 
 class Dictionary:
@@ -147,6 +148,7 @@ class Dictionary:
                     # リスト型で保存されていたtemplatesを解体
                     f.write('{}\t{}\n'.format(count, template))
         self._markov.save(Dictionary.DICT['markov'])
+        w2v.make_model()
 
     @staticmethod
     def touch_dics():
@@ -184,3 +186,7 @@ class Dictionary:
     @property
     def markov(self):
         return self._markov
+    
+    @property
+    def emotion(self):
+        return self._emotion

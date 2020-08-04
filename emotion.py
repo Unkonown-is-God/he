@@ -4,8 +4,8 @@ import jaconv
 
 
 class Emotion:
-    def __init__(self):
-        dic = Dictionary()._emotion
+    def __init__(self,dictionary):
+        dic = dictionary._emotion
         self.ewords = [d[0] for d in dic]
         self.evalues = [d[2] for d in dic]
         self.ereading = list(map(jaconv.hira2kata, [d[1]for d in dic]))
@@ -31,8 +31,9 @@ class Emotion:
 
 
 if __name__ == "__main__":
+    D=Dictionary()
     key = input()
-    parts = morph.analyze(key)
-    e = Emotion()
+    parts = morph.analyze(key,1)
+    e = Emotion(D)
     print(parts[0][2])
     print(e.emotionv(parts))

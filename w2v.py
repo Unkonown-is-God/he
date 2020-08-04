@@ -23,3 +23,13 @@ def make_model():
 
 def word_calculator(text):
     pass
+
+if __name__ == "__main__":
+    make_model()
+    model = word2vec.Word2Vec.load(MODEL)
+    keys=input('>').split()
+    # print('w2v')
+    for word in keys:
+        print(word+'↓')
+        similar_words = model.most_similar(positive=[word])
+        print(similar_words)
