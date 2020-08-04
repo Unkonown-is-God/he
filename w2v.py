@@ -1,6 +1,7 @@
 from gensim.models import word2vec
 import random
-model_file = 'dics/w2v_model.model'
+MODEL = 'dics/w2v_model.model'
+WAKATI  'dics/wakati.txt'
 def load_w2v(word): 
     model = word2vec.Word2Vec.load(model_file)
     try:
@@ -10,5 +11,10 @@ def load_w2v(word):
     except:
         return word
 
-def make_moedl():
+def make_model():
+    w2v_data = word2vec.LineSentence(WAKATI)
+    model = word2vec.Word2Vec(w2v_data,size=100,window=3,hs=1,min_count=1,sg=1)
+    moel.save(MODEL)
+    
+def word_calculator(text):
     pass
