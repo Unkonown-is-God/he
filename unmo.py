@@ -14,6 +14,7 @@ class Unmo:
     """
     # 名前の設定を行うクラスだよ
 
+
     def __init__(self, name):
         """文字列を受け取り、コアインスタンスの名前に複数設定する。"""
         self._dictionary = Dictionary()
@@ -42,7 +43,8 @@ class Unmo:
             self._responder = self._responders['template']
         elif chance in range(50, 70):
             self._responder = self._responders['random']
-            '''
+        el
+        '''
         if chance in range(0, 100):
             self._responder = self._responders['markov']
         else:
