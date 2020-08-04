@@ -3,6 +3,7 @@ from responder import RandomResponder, WhatResponder, PatternResponder, Template
 from dictionary import Dictionary
 import morph
 from emotion import Emotion
+import wakati
 
 
 class Unmo:
@@ -34,13 +35,15 @@ class Unmo:
         text = morph.fix(text)
         chance = randrange(0, 100)  # random.randomではfloat型なのでrandrangeを使う
         # ランダムに0から１００を生成
+        '''
         if chance in range(0, 30):  # rangeはint型　０から５９
             self._responder = self._responders['pattern']
         elif chance in range(30, 50):  # rangeはstart<=x<stop この場合60以上９０未満
             self._responder = self._responders['template']
         elif chance in range(50, 70):
             self._responder = self._responders['random']
-        elif chance in range(70, 90):
+            '''
+        if chance in range(0, 100):
             self._responder = self._responders['markov']
         else:
             self._responder = self._responders['what']

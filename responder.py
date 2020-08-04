@@ -64,4 +64,4 @@ class MarkovResponder(Responder):
     def response(self, _, parts):
         keyword = next((w for w, p in parts if morph.is_keyword(p)), '')
         response = self._dictionary.markov.generate(keyword)
-        return response if response else choice(self._dictionary.random).join('a')
+        return response if response else choice(self._dictionary.random).join('random')

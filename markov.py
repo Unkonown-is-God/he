@@ -6,6 +6,7 @@ import re
 import copy
 import dill
 import morph
+import w2v
 
 
 class Markov:
@@ -64,9 +65,10 @@ class Markov:
         # 辞書が空だとnoneを返す
         if not self._dic:
             return None
-
+        
+        keyword=w2v.load_w2v(keyword)
         prefix1 = keyword if self._dic[keyword] else choice(
-            list(self._dic.keys()))
+            list(self._starts.keys()))
         # keyword が　辞書に登録されていればkeywordを代入　登録されていなければランダムに代入
 
         prefix2 = choice(list(self._dic[prefix1].keys()))
@@ -97,7 +99,6 @@ class Markov:
         try:
             with open(filename, 'rb') as f:
                 self._dic, self._starts = dill.load(f)
-        # numpayに変更予定
         except TypeError:
             pass
 
