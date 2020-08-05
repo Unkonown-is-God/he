@@ -13,7 +13,8 @@ class Markov:
     # マルコフ連鎖による学習と生成
     '''クラス定数：
     ENDMARK　文章の終わりを表す記号
-    CHAIN-MARK　連鎖の最大値'''
+    CHAIN-MARK　連鎖の最大値
+    ORDER　階数指定'''
     ENDMARK = '%END'
     CHAIN_MAX = 30
     ORDER = 3
