@@ -16,6 +16,7 @@ class Markov:
     CHAIN-MARK　連鎖の最大値'''
     ENDMARK = '%END'
     CHAIN_MAX = 30
+    ORDER = 3
 
     def __init__(self):
         self._dic = defaultdict(lambda: defaultdict(lambda: []))
@@ -27,7 +28,7 @@ class Markov:
     # 学習
     def add_sentence(self, parts):
         # 三語以上でないと学習しないようにする
-        if len(parts) < 3:
+        if len(parts) < Markov.ORDER:
             return
 
         # 呼びだし元をグチャグチャにしないためにコピー
@@ -35,16 +36,17 @@ class Markov:
         # pythonの　a=b は　*a=&bと同意義　aの値を変えるとbの値まで変更してしまう
         # 変更したくないときはcopyをしよう！
 
-        prefix1, prefix2 = parts.pop(0)[0], parts.pop(0)[0]
+        parts=[p[0] for p in parts]
+        prefixs = [parts.pop(0) for i in range(Markov.ORDER-1)]
         # 文章の頭に単語を代入
 
         # 下にメソッドが宣言されている
-        self._add_start(prefix1)
+        self._add_start(prefixs[0])
         # 始まりの単語を記録せし者
 
         for suffix, _ in parts:
             # 品詞は使わないので_
-            self._add_suffix(prefix1, prefix2, suffix)
+            self._add_suffix(prefixs[0], prefixs[1], suffix)
             # 下に宣言されている
             # 辞書型の中のリスト型にどんどん追記していく
 
@@ -53,7 +55,7 @@ class Markov:
         self._add_suffix(prefix1, prefix2, Markov.ENDMARK)
         # 文章が閉じたことを明記する
 
-    def _add_suffix(self, prefix1, prefix2, suffix):
+    def _add_suffix(self, prefixs, suffix):
         self._dic[prefix1][prefix2].append(suffix)
 
     def _add_start(self, prefix1):

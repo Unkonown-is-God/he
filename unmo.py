@@ -4,6 +4,7 @@ from dictionary import Dictionary
 import morph
 from emotion import Emotion
 from wakati import Wakati
+import counter
 
 
 class Unmo:
