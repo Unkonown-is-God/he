@@ -1,7 +1,7 @@
 import os
 import sys
 from random import choice
-from collections import defaultdict
+from collections import defaultdict, deque
 import re
 import copy
 import dill
@@ -37,7 +37,7 @@ class Markov:
         # pythonの　a=b は　*a=&bと同意義　aの値を変えるとbの値まで変更してしまう
         # 変更したくないときはcopyをしよう！
 
-        parts=[p[0] for p in parts]
+        parts = [p[0] for p in parts]
         prefixs = [parts.pop(0) for i in range(Markov.ORDER-1)]
         # 文章の頭に単語を代入
 
@@ -47,17 +47,19 @@ class Markov:
 
         for suffix, _ in parts:
             # 品詞は使わないので_
-            self._add_suffix(prefixs[0], prefixs[1], suffix)
+            self._add_suffix(prefixs, suffix)
             # 下に宣言されている
             # 辞書型の中のリスト型にどんどん追記していく
 
-            prefix1, prefix2 = prefix2, suffix
+            prefixs = prefixs[1:]
+            prefixs.append(suffix)
             # 左側にずれていくイメージ prefix1はいなくなるのであった
-        self._add_suffix(prefix1, prefix2, Markov.ENDMARK)
+        self._add_suffix(prefixs, Markov.ENDMARK)
         # 文章が閉じたことを明記する
 
     def _add_suffix(self, prefixs, suffix):
-        self._dic[prefix1][prefix2].append(suffix)
+        key = tuple(prefixs)
+        self._dic[key].append(suffix)
 
     def _add_start(self, prefix1):
         self._starts[prefix1] += 1
@@ -68,22 +70,24 @@ class Markov:
         # 辞書が空だとnoneを返す
         if not self._dic:
             return None
-        
-        keyword=w2v.load_w2v(keyword)
-        prefix1 = keyword if self._dic[keyword] else choice(
+
+        keyword = w2v.load_w2v(keyword)
+        keys = self._dic.keys()
+        keys1 = [key[0] for key in keys]
+        prefix = keyword if keyword in keys1 else choice(
             list(self._starts.keys()))
         # keyword が　辞書に登録されていればkeywordを代入　登録されていなければランダムに代入
 
-        prefix2 = choice(list(self._dic[prefix1].keys()))
-        # prefix2をランダムで代入
+        index = self.search(prefix, keys1)
+        key=keys[choice(index)]
 
-        words = [prefix1, prefix2]
+        words = list(key)
         # 生成される文章の依り代
 
         for _ in range(Markov.CHAIN_MAX):
             # CHAIN_MAXまでループ
 
-            suffix = choice(self._dic[prefix1][prefix2])
+            suffix = choice(self._dic[key])
             # wordsに追加するsuffixを更新
 
             if suffix == Markov.ENDMARK:
@@ -91,11 +95,20 @@ class Markov:
                 break
             words.append(suffix)
             # wordsリストにsuffixを追加
-            prefix1, prefix2 = prefix2, suffix
-            # prefix1,2を更新
+            key = key[1:] + tuple(suffix)
+            # prefixを更新
 
         return ''.join(map(str, words))
         # 生成された文章を返す
+
+    def search(self, prefix, keys1):
+        # prefixと同じkeys1の要素数を検索
+        l = len(keys1)
+        index = []
+        for i in range(l):
+            if keys1[i] == prefix:
+                index.append(i)
+        return index
 
     def load(self, filename):
         # filenameから辞書を読み取る
@@ -109,3 +122,10 @@ class Markov:
         # filenameのファイルへ辞書データを書き込む
         with open(filename, 'wb') as f:
             dill.dump((self._dic, self._starts), f)
+
+if __name__ == "__main__":
+    print('demo')
+    M=Markov()
+    M.load('dics/markov.dat')
+    key=input('>')
+    M.generate(key)
