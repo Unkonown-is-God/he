@@ -1,39 +1,35 @@
 from unmo import Unmo
+from util import format_error
+import tqdm
 
-
+FILE = 'dics/wakati.txt'
 def build_prompt(unmo):
     """AIインスタンスを取り、AIとResponderの名前を整形して返す"""
     return '{name}:{responder}> '.format(name=unmo.name,
                                          responder=unmo.responder_name)
 
 
-def apimode(key):
-    value = {'title': 'Unmo System prototype : proto'}
-    proto = Unmo('proto')
+def load_file(filename):
     try:
-        response = proto.dialogue(key)
-        value['response'] = response[0]
-        value['emotion'] = response[1]
-        value['prompt'] = build_prompt(proto)
-    except IndexError as error:
-        value['response'] = '{}: {}'.format(type(error).__name__, str(error))
-    value['save'] = proto.save()
-    return value
+        with open(filename, 'r', encoding='utf-8') as f:
+            return [x for x in f.read().splitlines() if x]  # リスト内表記で検索
+    except IOError as e:
+        print(format_error(e))
+        return -1
 
 
 if __name__ == '__main__':  # main.pyがターミナルで実行されているのかを判別
     print('Unmo System prototype : study')
     proto = Unmo('study')
-    while True:
-        text = input('> ')
+    lines = load_file(FILE)
+    
+    for text in tqdm.tqdm(lines):
         if not text:
-            break
+            pass
         try:
             response = proto.dialogue(text)
         except IndexError as error:
-            print('{}: {}'.format(type(error).__name__, str(error)))
-            print('辞書が空です(Responder:{})'.format(proto.responder_name))
+            pass
         else:
-            print('{prompt}{response}:{emotion}'.format(prompt=build_prompt(proto),
-                                                        response=response[0], emotion=response[1]))  # {}のなかのやつと.formatのやつは名前をあわせ
+            pass
     proto.save()

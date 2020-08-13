@@ -34,6 +34,7 @@ class Unmo:
         # 呼び出されたクラスはインスタンス化される（要するに__init__が動く)
 
     def dialogue(self, text):
+        #print('dia')
         """ユーザーからの入力を受け取り、Responderに処理させた結果を返す。"""
         text = morph.fix(text)
         chance = randrange(0, 100)  # random.randomではfloat型なのでrandrangeを使う
@@ -52,7 +53,10 @@ class Unmo:
         else:
             self._responder = self._responders['what']
         parts = morph.analyze(text, 0)
-        response = self._responder.response(text, parts)
+        try:
+            response = self._responder.response(text, parts)
+        except:
+            response= 'error'
         self._dictionary.study(text, parts)
         parts = morph.analyze(response, 1)
         emotion = self._emotion.emotionv(parts)

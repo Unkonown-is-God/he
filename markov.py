@@ -20,7 +20,7 @@ class Markov:
     ORDER = 3
 
     def __init__(self):
-        self._dic = defaultdict(lambda: defaultdict(lambda: []))
+        self._dic = defaultdict(lambda: [])
         # マルコフ辞書 二次元配列のイメージ [key][key]=[value]
         # こんな感じの構造　{key:{key:[value1,value2,value3]},{},{}}
         self._starts = defaultdict(lambda: 0)
@@ -45,8 +45,7 @@ class Markov:
         self._add_start(prefixs[0])
         # 始まりの単語を記録せし者
 
-        for suffix, _ in parts:
-            # 品詞は使わないので_
+        for suffix in parts:
             self._add_suffix(prefixs, suffix)
             # 下に宣言されている
             # 辞書型の中のリスト型にどんどん追記していく
@@ -72,7 +71,8 @@ class Markov:
             return None
 
         keyword = w2v.load_w2v(keyword)
-        keys = self._dic.keys()
+        keys = list(self._dic.keys())
+        keys=[key for key in keys if len(key) == Markov.ORDER-1]
         keys1 = [key[0] for key in keys]
         prefix = keyword if keyword in keys1 else choice(
             list(self._starts.keys()))
@@ -95,7 +95,7 @@ class Markov:
                 break
             words.append(suffix)
             # wordsリストにsuffixを追加
-            key = key[1:] + tuple(suffix)
+            key = key[1:] + tuple([suffix])
             # prefixを更新
 
         return ''.join(map(str, words))
@@ -124,8 +124,6 @@ class Markov:
             dill.dump((self._dic, self._starts), f)
 
 if __name__ == "__main__":
-    print('demo')
-    M=Markov()
-    M.load('dics/markov.dat')
-    key=input('>')
-    M.generate(key)
+    with open('dics/markov.dat', 'rb') as f:
+        dic,_=dill.load(f)
+        print(dic)
